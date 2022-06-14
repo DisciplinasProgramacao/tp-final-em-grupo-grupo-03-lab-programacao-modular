@@ -11,7 +11,7 @@ public class Pedido {
     public static int identificadorPedidos = 0;
 
     private int ID;
-    private double avaliacaoNota; //considerar nota de 1 à 5 podendo ser com casas decimais ex: 2,5 / 3,2 / 3,0 e etc
+    private double avaliacaoNota; //considerar nota de 1 a 5 podendo ser com casas decimais ex: 2,5 / 3,2 / 3,0 e etc
     private Cliente cliente;
     private List<Produto> produtos;
     private double valorTotal;
@@ -19,14 +19,43 @@ public class Pedido {
     private LocalDate dataPedido;
     private double valorBruto;
 
-    public Pedido(List<Produto> produtos, Cliente cliente,double desconto ) throws ExcecaoQuantidadeDeProdutosIrregular{
+    public Pedido(List<Produto> produtos, Cliente cliente, double desconto ) throws ExcecaoQuantidadeDeProdutosIrregular{
         setProdutos(produtos);
-        setValorTotal(desconto);
+        setCliente(cliente);
+        setDesconto(desconto);
+        setValorTotal(calculaDesconto(desconto));
         setDataPedido(LocalDate.now());
-        identificadorPedidos++;
-        setID(identificadorPedidos);
+        setID(++identificadorPedidos);
         
     }
+
+    public int getID() {
+		return ID;
+	}
+
+	public void setID(int iD) {
+		ID = iD;
+	}
+
+	public double getAvaliacaoNota() {
+		return avaliacaoNota;
+	}
+
+	public void setAvaliacaoNota(double avaliacaoNota) {
+		this.avaliacaoNota = avaliacaoNota;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Produto> getProdutos() {
+		return produtos;
+	}
 
     public void setProdutos(List<Produto> produtos) throws ExcecaoQuantidadeDeProdutosIrregular {
         if(produtos.size() >= MIN_PRODUTOS && produtos.size() <= MAX_PRODUTOS){
@@ -36,23 +65,62 @@ public class Pedido {
         }
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
+	public double getValorTotal() {
+		return valorTotal;
+	}
 
-    // public String gerarNotaPedido(){ como se fosse um recibo diferente do que esta no gerarRelatorioDetalhadoPedido()
-        
-    //  Necessario Finalizar desenvolvimento!
-          
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
+	}
+
+	public LocalDate getDataPedido() {
+		return dataPedido;
+	}
+
+	public void setDataPedido(LocalDate dataPedido) {
+		this.dataPedido = dataPedido;
+	}
+
+	public double getValorBruto() {
+		return valorBruto;
+	}
+
+	public void setValorBruto(double valorBruto) {
+		this.valorBruto = valorBruto;
+	}
+
+	public String gerarNotaPedido(){
+       String notaPedido = "";
        
-    // }
+       notaPedido += String.format("\n%15s: %50s", "Cliente", cliente.getNome());
+       notaPedido += String.format("\n%s:\n", "Produtos");
+       
+       for(Produto p : produtos) {
+    	   notaPedido += String.format("\n%15s%5.2f;", p.getNome(), p.getPrecoBase());
+       }
+       
+       notaPedido += String.format("\n%15s: %12s", "Data", getDataPedido().toString());
+       notaPedido += String.format("\n%15s: %5.2f", "Desconto", getDesconto());
+       notaPedido += String.format(" || %15s: %5.2f", "Valor Bruto", getValorBruto());
+       notaPedido += String.format("\n%15s: %5.2f", "Valor Total", getValorTotal());
+       
+       return notaPedido;
+	}
 
-    public void setValorTotal(double desconto) {
+    public double calculaDesconto(double desconto) {
 
         double valorDosItens = 0;
 
-        for (Produto produto : produtos) {
-            valorDosItens += produto.getPrecoBase();
+        for (Produto p : produtos) {
+            valorDosItens += p.getPrecoBase();
         }
 
         double descontoTotal =  valorDosItens * desconto;
@@ -61,7 +129,7 @@ public class Pedido {
 
         this.valorBruto = valorDosItens;
 
-        this.valorTotal = valorDosItens - descontoTotal;
+        return valorDosItens - descontoTotal;
     }
 
     public String gerarRelatorioGeralPedido(){
@@ -69,8 +137,8 @@ public class Pedido {
         String relatorioTotalGeralPedido = "";
 
         relatorioTotalGeralPedido += "\nID: "+ getID();
-        relatorioTotalGeralPedido += "|| Valor: "+ getValorTotal();
-        relatorioTotalGeralPedido += "|| Data: "+ getDataPedido();
+        relatorioTotalGeralPedido += " || Valor: "+ getValorTotal();
+        relatorioTotalGeralPedido += " || Data: "+ getDataPedido();
 
         return relatorioTotalGeralPedido;
     }
@@ -86,52 +154,12 @@ public class Pedido {
         relatorioDetalhadoPedido += "\nID: "+ getID();
         
         for (Produto produto : produtos) {
-            
             relatorioDetalhadoPedido += "\n"+ produto.getNome()+ " Valor: "+ String.valueOf(produto.getPrecoBase());
-
         }
 
         relatorioDetalhadoPedido += "\nValor Bruto: "+ getValorBruto()+ "|| Desencontos: "+ getDesconto()+ "|| Valor Total: "+ getValorTotal();
 
         return relatorioDetalhadoPedido;
-
     }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-    
-
-    public void setDataPedido(LocalDate dataPedido) {
-        this.dataPedido = dataPedido;
-    }
-
-    public LocalDate getDataPedido() {
-        return dataPedido;
-   }
-
-   public void setID(int ID) {
-       this.ID = ID;
-   }
-
-   public int getID() {
-       return ID;
-   }
-
-   public double getValorBruto() {
-       return valorBruto;
-   }
-
-   public double getDesconto() {
-       return desconto;
-   }
-
-   public Cliente getCliente() {
-       return cliente;
-   }
-
-   public double getAvaliacaoNota() {
-       return avaliacaoNota;
-   }
    
 }
