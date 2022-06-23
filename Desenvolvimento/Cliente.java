@@ -1,188 +1,186 @@
-package Desenvolvimento;
+// package Desenvolvimento;
 
+// import java.time.LocalDate;
+// import java.util.ArrayList;
+// import java.util.List;
 
+// public class Cliente{
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+//     private String nome;
+//     private String CPF;
+//     private double avaliacaoMediaPedidos;   
+//     private int quantidadeAvaliacoes;
+//     private IValoravel fidelidade;
+//     private List<Pedido> historicoPedidos;
 
-public class Cliente{
+//     public Cliente(String nome, String CPF){
 
-    private String nome;
-    private String CPF;
-    private double avaliacaoMediaPedidos;   
-    private int quantidadeAvaliacoes;
-    private IValoravel fidelidade;
-    private List<Pedido> historicoPedidos;
+//         historicoPedidos =  new ArrayList<Pedido>();
+//         setNome(nome);
+//         setCPF(CPF);
+//         setQuantidadeAvaliacoes(0);
+//     }
 
-    public Cliente(String nome, String CPF){
+//     private void descobrirNivelFidelidade(){ //de acordo com o escopo do trabalho, logica calcula automaticamente qual o nivel de fidelidade do usuario
 
-        historicoPedidos =  new ArrayList<Pedido>();
-        setNome(nome);
-        setCPF(CPF);
-        setQuantidadeAvaliacoes(0);
-    }
+//         if(historicoPedidos.size() >= 50 || calculaGastosMeses(6) > 600 ){
 
-    private void descobrirNivelFidelidade(){ //de acordo com o escopo do trabalho, logica calcula automaticamente qual o nivel de fidelidade do usuario
+//             this.fidelidade = new FidelidadeFeV();
 
-        if(historicoPedidos.size() >= 50 || calculaGastosMeses(6) > 600 ){
+//         }else if(historicoPedidos.size() >= 10 || calculaGastosMeses(2) > 250){
 
-            this.fidelidade = new FidelidadeFeV();
+//             this.fidelidade = new FidelidadePreto();
 
-        }else if(historicoPedidos.size() >= 10 || calculaGastosMeses(2) > 250){
-
-            this.fidelidade = new FidelidadePreto();
-
-        }else if(historicoPedidos.size() >= 4 || calculaGastosMeses(1) >= 100){
+//         }else if(historicoPedidos.size() >= 4 || calculaGastosMeses(1) >= 100){
             
-            this.fidelidade = new FidelidadePrata();
+//             this.fidelidade = new FidelidadePrata();
 
-        }else{
+//         }else{
             
-            this.fidelidade = new FidelidadeBranco();
+//             this.fidelidade = new FidelidadeBranco();
 
-        }
+//         }
 
-    }
+//     }
 
-    private void setNome(String nome){
-        this.nome = nome;
-    }
+//     private void setNome(String nome){
+//         this.nome = nome;
+//     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
-
-    public void realizarPedido(List<Produto> produtos){
-
-        try{
-
-            descobrirNivelFidelidade();
-
-            Pedido pedidoEmAndamento = new Pedido(produtos, this, fidelidade.getDesconto());
-
-            historicoPedidos.add(pedidoEmAndamento);
+//     public void setCPF(String CPF) {
+//         this.CPF = CPF;
+//     }
 
 
-        }catch(ExcecaoQuantidadeDeProdutosIrregular e){
+//     public void realizarPedido(List<Produto> produtos){
 
-            System.out.println(e + "\n");
+//         try{
 
-        }
+//             descobrirNivelFidelidade();
 
-    }
+//             Pedido pedidoEmAndamento = new Pedido(produtos, this, fidelidade.getDesconto());
 
-    private double calculaGastosMeses(int quantidadeMeses){
+//             historicoPedidos.add(pedidoEmAndamento);
+
+
+//         }catch(ExcecaoQuantidadeDeProdutosIrregular e){
+
+//             System.out.println(e + "\n");
+
+//         }
+
+//     }
+
+//     private double calculaGastosMeses(int quantidadeMeses){
         
-        LocalDate dataAtual =  LocalDate.now();
+//         LocalDate dataAtual =  LocalDate.now();
 
-        LocalDate dataInical = descobreDataInicialFidelidade(dataAtual,quantidadeMeses);
+//         LocalDate dataInical = descobreDataInicialFidelidade(dataAtual,quantidadeMeses);
 
-        double totalGastoNoPeriodo = 0;
+//         double totalGastoNoPeriodo = 0;
 
-        for (Pedido pedido : historicoPedidos) {
-            if(pedido.getDataPedido().isAfter(dataInical)){
-                totalGastoNoPeriodo += pedido.getValorTotal();
-            }
-        }
+//         for (Pedido pedido : historicoPedidos) {
+//             if(pedido.getDataPedido().isAfter(dataInical)){
+//                 totalGastoNoPeriodo += pedido.getValorTotal();
+//             }
+//         }
         
-        return totalGastoNoPeriodo;
+//         return totalGastoNoPeriodo;
 
-    }
+//     }
 
-    private LocalDate descobreDataInicialFidelidade(LocalDate dataAtual, int quantidadeMeses){
+//     private LocalDate descobreDataInicialFidelidade(LocalDate dataAtual, int quantidadeMeses){
 
-        LocalDate dataAuxiliar;
+//         LocalDate dataAuxiliar;
 
-            if(dataAtual.getMonthValue() - quantidadeMeses <= 0 ){
+//             if(dataAtual.getMonthValue() - quantidadeMeses <= 0 ){
 
-                dataAuxiliar =  dataAtual.withYear(dataAtual.getYear()-1);
-                dataAuxiliar = dataAuxiliar.withMonth(12);
+//                 dataAuxiliar =  dataAtual.withYear(dataAtual.getYear()-1);
+//                 dataAuxiliar = dataAuxiliar.withMonth(12);
 
-                return dataAuxiliar;
+//                 return dataAuxiliar;
 
-            }else{
-                dataAuxiliar = dataAtual.withMonth(dataAtual.getMonthValue()-1);
+//             }else{
+//                 dataAuxiliar = dataAtual.withMonth(dataAtual.getMonthValue()-1);
 
-                return dataAuxiliar;
-            }
-    }
+//                 return dataAuxiliar;
+//             }
+//     }
 
-    public void avaliarPedidoFeito(Pedido pedidoAAvaliar,double nota){
+//     public void avaliarPedidoFeito(Pedido pedidoAAvaliar,double nota){
 
-        for (Pedido pedido : historicoPedidos) { //garante que o cliente não avalie um pedido que não é dele!
-            if(pedidoAAvaliar == pedido){
-                pedido.receberAvaliacao(nota); //considerar nota de 1 à 5 podendo ser numeros com casas decimais
-            }
-        }
+//         for (Pedido pedido : historicoPedidos) { //garante que o cliente não avalie um pedido que não é dele!
+//             if(pedidoAAvaliar == pedido){
+//                 pedido.receberAvaliacao(nota); //considerar nota de 1 à 5 podendo ser numeros com casas decimais
+//             }
+//         }
 
-        atualizaMediaAvaliacoes(nota);
-    }
+//         atualizaMediaAvaliacoes(nota);
+//     }
 
-    private void atualizaMediaAvaliacoes(double nota){
+//     private void atualizaMediaAvaliacoes(double nota){
         
-        double acumuladoAvaliacoes = getQuantidadeAvaliacoes() * getAvaliacaoMediaPedidos();
+//         double acumuladoAvaliacoes = getQuantidadeAvaliacoes() * getAvaliacaoMediaPedidos();
 
-        setQuantidadeAvaliacoes(getQuantidadeAvaliacoes() + 1 );
+//         setQuantidadeAvaliacoes(getQuantidadeAvaliacoes() + 1 );
 
-        double novaMediaAvaliacoes = (acumuladoAvaliacoes+nota) / (getQuantidadeAvaliacoes());
+//         double novaMediaAvaliacoes = (acumuladoAvaliacoes+nota) / (getQuantidadeAvaliacoes());
 
-        setAvaliacaoMediaPedidos(novaMediaAvaliacoes);
+//         setAvaliacaoMediaPedidos(novaMediaAvaliacoes);
 
-    }
+//     }
 
 
-    public String gerarRelatorioPedidos(){
+//     public String gerarRelatorioPedidos(){
         
-        String relatorioTotal = "Relatorio dos pedidos: ";
+//         String relatorioTotal = "Relatorio dos pedidos: ";
 
-        for (Pedido pedido : historicoPedidos) {
+//         for (Pedido pedido : historicoPedidos) {
             
-            relatorioTotal += pedido.gerarRelatorioGeralPedido();
+//             relatorioTotal += pedido.gerarRelatorioGeralPedido();
 
-        }
+//         }
 
-        return relatorioTotal;
+//         return relatorioTotal;
 
-    }
+//     }
 
 
-    public String gerarRelatorioEspecifico(Pedido pedido){
+//     public String gerarRelatorioEspecifico(Pedido pedido){
 
-        String relatorioEspecifico = "Relatorio do pedido: ";
+//         String relatorioEspecifico = "Relatorio do pedido: ";
 
-        relatorioEspecifico += pedido.gerarRelatorioDetalhadoPedido();
+//         relatorioEspecifico += pedido.gerarRelatorioDetalhadoPedido();
 
-        return relatorioEspecifico;
+//         return relatorioEspecifico;
 
-    }
+//     }
 
-    public List<Pedido> getHistoricoPedidos() {
-        return historicoPedidos;
-    }
+//     public List<Pedido> getHistoricoPedidos() {
+//         return historicoPedidos;
+//     }
 
-    public String getCPF() {
-        return CPF;
-    }
+//     public String getCPF() {
+//         return CPF;
+//     }
 
-    public String getNome() {
-        return nome;
-    }
+//     public String getNome() {
+//         return nome;
+//     }
 
-    public double getAvaliacaoMediaPedidos() {
-        return avaliacaoMediaPedidos;
-    }
+//     public double getAvaliacaoMediaPedidos() {
+//         return avaliacaoMediaPedidos;
+//     }
 
-    public int getQuantidadeAvaliacoes() {
-        return quantidadeAvaliacoes;
-    }
+//     public int getQuantidadeAvaliacoes() {
+//         return quantidadeAvaliacoes;
+//     }
 
-    public void setQuantidadeAvaliacoes(int quantidadeAvaliacoes) {
-        this.quantidadeAvaliacoes = quantidadeAvaliacoes;
-    }
+//     public void setQuantidadeAvaliacoes(int quantidadeAvaliacoes) {
+//         this.quantidadeAvaliacoes = quantidadeAvaliacoes;
+//     }
 
-    public void setAvaliacaoMediaPedidos(double avaliacaoMediaPedidos) {
-        this.avaliacaoMediaPedidos = avaliacaoMediaPedidos;
-    }
-}
+//     public void setAvaliacaoMediaPedidos(double avaliacaoMediaPedidos) {
+//         this.avaliacaoMediaPedidos = avaliacaoMediaPedidos;
+//     }
+// }
