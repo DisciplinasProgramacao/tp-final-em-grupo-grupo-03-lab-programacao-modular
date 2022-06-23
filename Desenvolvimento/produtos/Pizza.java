@@ -1,54 +1,65 @@
 package Desenvolvimento.produtos;
 
-import java.time.LocalDate;
+import java.util.List;
 
-import Desenvolvimento.produtos.contracts.Comestivel;
+import Desenvolvimento.produtos.acrescimos.Acrescimo;
 
-public class Pizza extends Comestivel {
-    private LocalDate dataDeCriacao = LocalDate.now();
-    private double PRECO_FIXO = 25;
+public class Pizza extends ProdutoComAdcionais {
+    public static double PRECO_ATUAL_ALTERADO = 25;
     private boolean bordaRecheada;
 
-    Pizza(boolean bordaRecheada){
+    public Pizza(boolean bordaRecheada){
+        calculaAnosUltimaAlteracao();
         this.bordaRecheada = bordaRecheada;
-        setPrecoFixo();
+        setPrecoDeVendaPizza(PRECO_ATUAL_ALTERADO);
     }
 
-    @Override
-    public void setPrecoFixo(){
+    private void setPrecoDeVendaPizza(double preco){
         if(bordaRecheada){
-            PRECO_FIXO += 8.00;
+            setPrecoDeVenda(preco+8);
+        }else{
+            setPrecoDeVenda(preco);
         }
     }
 
     @Override
-    public double precoTotal() {
-        return 0;
+    public void alterarPrecoNovoAdcional(Acrescimo acrescimo){
+        setPrecoDeVenda(getPrecoDeVenda() + acrescimo.getPreco()*2); //x2 regra de negocio da pizza
+    }
+
+    @Override
+    public void alterarPrecoRemoverAdcional(Acrescimo acrescimo){
+        setPrecoDeVenda(getPrecoDeVenda() - acrescimo.getPreco()*2); //x2 regra de negocio da pizza
     }
 
     @Override
     public String getDescricao() {
-        String descricao = "Pizza (25.00) ";
+        String descricao = "Pizza ";
         if(bordaRecheada){
-            descricao = ", Borda Recheada (8.00)";
+            descricao += "Borda Recheada (8.00)";
         }
+        List<Acrescimo> acrescimos = getAcrescimos();
+
+        descricao += " Adcionais:";
+
+        for (Acrescimo acrescimo : acrescimos) {
+            descricao += acrescimo.getDescricao();
+        }
+
+        descricao += " || Valor total = " + String.valueOf(getPrecoDeVenda());
+
         return descricao;
     }
 
-    @Override
-    public void reajustarPreco(int anosPassados) {
-        // TODO Auto-generated method stub
-        
+    @Override 
+    public  void setPrecoAtualProduto(double precoAlterado){
+        Pizza.PRECO_ATUAL_ALTERADO = precoAlterado;
     }
 
     @Override
-    public double getPrecoFixo() {
-        return PRECO_FIXO;
+    public double getPrecoAtualProduto() {
+        return Pizza.PRECO_ATUAL_ALTERADO;
     }
 
-    @Override
-    public double calcularPrecoTotalDeAcrescimos(){
-        return getAcrescimos().stream().mapToDouble((acrescimo) -> acrescimo.getPreco() * 2).sum();
-    }
     
 }

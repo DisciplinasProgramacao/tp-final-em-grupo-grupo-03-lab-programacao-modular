@@ -1,100 +1,30 @@
 package Desenvolvimento;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import Desenvolvimento.produtos.Bebida;
 import Desenvolvimento.produtos.Pizza;
 import Desenvolvimento.produtos.Sanduiche;
+import Desenvolvimento.produtos.Bebidas.Agua;
 import Desenvolvimento.produtos.acrescimos.*;
-import Desenvolvimento.produtos.contracts.IComestivel;
+
 
 public class Aplicacao {
     public static void main(String[]args){
 
+        Pizza  pizza1 =  new Pizza(true);
 
-        // Cliente Cliente1 = new Cliente("Thiago", "39702476836");
+        Sanduiche Hamburguer1 =  new Sanduiche(false);
 
-        // Produto produto1 = new Produto(32,"sanduiche");
-        // Produto produto2 = new Produto(24, "fanta");
-        // Produto produto3 = new Produto(10, "coca");
-        // Produto produto4 = new Produto(20, "pizza");
-        // Produto produto5 = new Produto(40, "pizzaGrande");
+        Acrescimo Bacon  = new Acrescimo(TipoAcrescimo.BACON);
 
-        // List<Produto> produtosPedido1 =  new ArrayList<Produto>();
+        pizza1.adicionarAcrescimo(Bacon);
 
-        // produtosPedido1.add(produto1);
+        System.out.println(pizza1.getDescricao());
 
-        // List<Produto> produtosPedido2 =  new ArrayList<Produto>();
+        System.out.println(Hamburguer1.getDescricao());
 
-        // produtosPedido2.add(produto2);
+        Agua agua1 =  new Agua();
 
-        // List<Produto> produtosPedido3 =  new ArrayList<Produto>();
+        System.out.println(agua1.getDescricao());
 
-        // produtosPedido3.add(produto3);
-
-        // List<Produto> produtosPedido4 =  new ArrayList<Produto>();
-
-        // produtosPedido4.add(produto4);
-
-        // List<Produto> produtosPedido5 =  new ArrayList<Produto>();
-        
-        // produtosPedido5.add(produto5);
-
-
-
-        // Cliente1.realizarPedido(produtosPedido1);
-        // Cliente1.realizarPedido(produtosPedido2);
-        // Cliente1.realizarPedido(produtosPedido3);
-        // Cliente1.realizarPedido(produtosPedido4);        
-        // Cliente1.realizarPedido(produtosPedido5);
-
-        // System.out.println("\n");
-
-        // System.out.println(Cliente1.gerarRelatorioPedidos()); 
-
-        // List<Pedido> pedidos = Cliente1.getHistoricoPedidos();
-
-        // for (Pedido p : pedidos) {
-
-        //     System.out.println("\n");
-
-        //     System.out.println(Cliente1.gerarRelatorioEspecifico(p));   
-        // }
-
-        // System.out.println("\n");
-        
-        IComestivel pizza =  new Pizza(false);
-
-        System.out.println(pizza.precoTotal());
-        System.out.println(pizza.getDescricao());
-
-        pizza = new Bacon(pizza);
-        pizza =  new Peperoni(pizza);
-
-        System.out.println(pizza.precoTotal());
-        System.out.println(pizza.getDescricao());
-
-        System.out.println("===================================================");
-
-        IComestivel sanduiche = new Sanduiche(false);
-
-        System.out.println(sanduiche.precoTotal());
-        System.out.println(sanduiche.getDescricao());
-
-        sanduiche = new Bacon(sanduiche);
-
-        System.out.println(sanduiche.precoTotal());
-        System.out.println(sanduiche.getDescricao());
-
-        System.out.println("===================================================");
-
-        Bebida bebida = Bebida.CERVEJA;
-
-        System.out.println(bebida.precoTotal());
-        System.out.println(bebida.getTipo());
-
-        System.out.println("===================================================");
-
+       
     }
 }

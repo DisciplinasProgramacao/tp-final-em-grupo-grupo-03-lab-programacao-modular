@@ -20,6 +20,6 @@ public enum TipoAcrescimo {
     }
 
     public String getDescricao(){
-        return this.name().toLowerCase();
+        return " "+ this.name().toLowerCase();
     }
 }
