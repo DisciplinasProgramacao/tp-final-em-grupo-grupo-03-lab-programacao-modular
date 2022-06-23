@@ -3,7 +3,11 @@ package Desenvolvimento;
 import java.util.ArrayList;
 import java.util.List;
 
-import Desenvolvimento.Acrescimos.*;
+import Desenvolvimento.produtos.Bebida;
+import Desenvolvimento.produtos.Pizza;
+import Desenvolvimento.produtos.Sanduiche;
+import Desenvolvimento.produtos.acrescimos.*;
+import Desenvolvimento.produtos.contracts.IComestivel;
 
 public class Aplicacao {
     public static void main(String[]args){
