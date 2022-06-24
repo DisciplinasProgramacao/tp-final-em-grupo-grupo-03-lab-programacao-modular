@@ -24,10 +24,6 @@ public class Aplicacao {
 
         Set<IClient> clientes = new LinkedHashSet<IClient>();
         ControladorDeArquivos.lerArquivo("Desenvolvimento/data/clients.bin").forEach((client) -> clientes.add(client));
-        clientes.forEach((client) -> {
-            System.out.println("CPF: " + client.getIdentificador());
-            System.out.println("QTD_PEDIDO: " + client.getPedidos().size());
-        });
 
         IClient clienteAtual = null;
 
