@@ -101,7 +101,7 @@ public class Pedido implements Serializable {
     public String getExtrato() {
         String notaPedido = "";
 
-        notaPedido += String.format("\n%15s: %50s", "Cliente", cliente.getNome());
+        notaPedido += String.format("\n%15s: %30s", "Cliente", cliente.getNome());
         notaPedido += String.format("\n%s:\n", "Produtos");
 
         for (Produto p : produtos) {

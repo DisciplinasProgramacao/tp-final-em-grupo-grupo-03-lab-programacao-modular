@@ -45,7 +45,7 @@ public class ControladorDeArquivos {
     public static void salvarClient(String path, IClient client) throws IOException {
         final List<IClient> clients = lerArquivo(path);
         final List<IClient> updatedClientList = clients.stream()
-                .filter((cli) -> cli.getIdentificador().equals(client.getIdentificador())).collect(Collectors.toList());
+                .filter((cli) -> !cli.getIdentificador().equals(client.getIdentificador())).collect(Collectors.toList());
         updatedClientList.add(client);
         escreveBinario(path, updatedClientList);
     }
