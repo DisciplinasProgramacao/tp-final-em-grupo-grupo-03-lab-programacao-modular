@@ -1,5 +1,6 @@
 package Desenvolvimento;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Set;
 
 import Desenvolvimento.cliente.*;
 import Desenvolvimento.cliente.contracts.*;
-import Desenvolvimento.pedido.*;
 import Desenvolvimento.produtos.*;
 import Desenvolvimento.produtos.Bebidas.*;
 import Desenvolvimento.produtos.ProdutosComAcrescimo.Pizza;
@@ -18,11 +18,16 @@ import Desenvolvimento.produtos.acrescimos.*;
 
 public class Aplicacao {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner scanner = new Scanner(System.in);
 
         Set<IClient> clientes = new LinkedHashSet<IClient>();
+        ControladorDeArquivos.lerArquivo("Desenvolvimento/data/clients.bin").forEach((client) -> clientes.add(client));
+        clientes.forEach((client) -> {
+            System.out.println("CPF: " + client.getIdentificador());
+            System.out.println("QTD_PEDIDO: " + client.getPedidos().size());
+        });
 
         IClient clienteAtual = null;
 
@@ -270,6 +275,8 @@ public class Aplicacao {
                     break;
             }
         }
+
+        scanner.close();
     }
 
 }

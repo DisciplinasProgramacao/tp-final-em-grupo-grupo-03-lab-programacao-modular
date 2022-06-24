@@ -1,5 +1,7 @@
 package Desenvolvimento.cliente.fidelidade.contracts;
 
-public interface IFidelidadeCalculavel {
+import java.io.Serializable;
+
+public interface IFidelidadeCalculavel extends Serializable {
     public double calcularDesconto(double preco);
 }

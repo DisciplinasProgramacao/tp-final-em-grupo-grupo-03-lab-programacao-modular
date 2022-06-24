@@ -99,4 +99,9 @@ public class ClienteProxy implements IClient {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public String toString() {
+        return this.client.toString();
+    }
 }

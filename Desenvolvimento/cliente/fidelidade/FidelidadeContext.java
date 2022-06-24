@@ -17,7 +17,7 @@ public class FidelidadeContext implements IFidelidadeContext {
 
     @Override
     public void setFidelidadeState(IFidelidadeState state) {
-        this.fidelidadeState = fidelidadeState;
+        this.fidelidadeState = state;
     }
 
     @Override

@@ -8,13 +8,12 @@ import Desenvolvimento.cliente.contracts.IClient;
 
 public class ControladorDeArquivos {
     public static List<IClient> lerArquivo(String path) throws IOException {
-        ObjectInputStream gravar = new ObjectInputStream(new FileInputStream(path));
-        if (gravar.available() != 0) {
-
+        FileInputStream file = new FileInputStream(path);
+        if (file.available() > 0) {
+            ObjectInputStream gravar = new ObjectInputStream(file);
             List<IClient> allLines = new ArrayList<IClient>();
             try {
                 IClient cliente = (IClient) gravar.readObject();
-
                 while (cliente != null) {
                     allLines.add(cliente);
                     cliente = (IClient) gravar.readObject();
@@ -29,6 +28,7 @@ public class ControladorDeArquivos {
 
             return allLines;
         }
+        file.close();
         return List.of();
     }
 

@@ -1,6 +1,8 @@
 package Desenvolvimento.produtos.acrescimos;
 
-public enum Acrescimo {
+import java.io.Serializable;
+
+public enum Acrescimo implements Serializable {
     BACON(3),
     BATATA_PALHA(2),
     OVO(2),

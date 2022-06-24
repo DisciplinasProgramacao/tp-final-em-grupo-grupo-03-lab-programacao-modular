@@ -1,12 +1,13 @@
 package Desenvolvimento.pedido;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
 import Desenvolvimento.cliente.*;
 import Desenvolvimento.produtos.*;
 
-public class Pedido {
+public class Pedido implements Serializable {
 
     public static int MAX_PRODUTOS = 10;
     public static int MIN_PRODUTOS = 1;
