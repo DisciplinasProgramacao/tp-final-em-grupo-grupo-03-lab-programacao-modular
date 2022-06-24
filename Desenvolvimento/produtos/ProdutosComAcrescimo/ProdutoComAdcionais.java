@@ -1,9 +1,10 @@
-package Desenvolvimento.produtos;
+package Desenvolvimento.produtos.ProdutosComAcrescimo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Desenvolvimento.produtos.acrescimos.Acrescimo;
+import Desenvolvimento.produtos.*;
+import Desenvolvimento.produtos.acrescimos.*;
 
 public abstract class ProdutoComAdcionais extends Produto {
     private List<Acrescimo> acrescimos = new ArrayList<Acrescimo>();
@@ -25,7 +26,7 @@ public abstract class ProdutoComAdcionais extends Produto {
     }
 
     public void alterarPrecoNovoAdcional(Acrescimo acrescimo){
-        setPrecoDeVenda(getPrecoDeVenda() + acrescimo.getPreco());
+        setPrecoDeVenda(getPrecoDeVenda() + acrescimo.getPreco());  
     }
 
     public void alterarPrecoRemoverAdcional(Acrescimo acrescimo){

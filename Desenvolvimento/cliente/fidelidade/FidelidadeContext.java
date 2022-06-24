@@ -6,7 +6,7 @@ import Desenvolvimento.cliente.fidelidade.states.FidelidadetBrancoState;
 
 public class FidelidadeContext implements IFidelidadeContext {
     private IFidelidadeState fidelidadeState;
-    
+
     public FidelidadeContext(IFidelidadeState fidelidadeState) {
         this.fidelidadeState = fidelidadeState;
     }
@@ -15,7 +15,8 @@ public class FidelidadeContext implements IFidelidadeContext {
         this.fidelidadeState = new FidelidadetBrancoState();
     }
 
-    public void setFidelidadeState(IFidelidadeState fidelidadeState) {
+    @Override
+    public void setFidelidadeState(IFidelidadeState state) {
         this.fidelidadeState = fidelidadeState;
     }
 
@@ -23,4 +24,5 @@ public class FidelidadeContext implements IFidelidadeContext {
     public double calcularDesconto(double preco) {
         return this.fidelidadeState.calcularDesconto(preco);
     }
+
 }

@@ -1,17 +1,25 @@
 package Desenvolvimento.produtos.acrescimos;
 
-public class Acrescimo {
-    private TipoAcrescimo tipoAcrescimo;
+public enum Acrescimo {
+    BACON(3),
+    BATATA_PALHA(2),
+    OVO(2),
+    PEPERONI(4),
+    PICLES(2),
+    QUEIJO(2),
+    PALMITO(3);
 
-    public Acrescimo(TipoAcrescimo tipoAcrescimo) {
-        this.tipoAcrescimo = tipoAcrescimo;
+    private int preco;
+
+    private Acrescimo(int preco) {
+        this.preco = preco;
     }
 
     public double getPreco() {
-        return this.tipoAcrescimo.getPreco();
+        return this.preco;
     }
 
     public String getDescricao() {
-        return this.tipoAcrescimo.getDescricao();
+        return " " + this.name().toLowerCase();
     }
 }

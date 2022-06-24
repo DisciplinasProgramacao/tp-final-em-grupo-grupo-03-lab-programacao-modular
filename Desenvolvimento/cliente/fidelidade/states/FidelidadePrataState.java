@@ -7,7 +7,7 @@ public class FidelidadePrataState implements IFidelidadeState {
 
     @Override
     public double calcularDesconto(double preco) {
-        return preco - (preco * DESCONTO);
+        return preco * DESCONTO;
     }
 
 }

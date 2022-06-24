@@ -1,17 +1,25 @@
 package Desenvolvimento.cliente.contracts;
 
+import java.io.Serializable;
 import java.util.List;
 
 import Desenvolvimento.pedido.Pedido;
-import Desenvolvimento.pedido.extratos.ExtratoPedidoResumido;
+import Desenvolvimento.produtos.Produto;
 
-public interface IClient {
+public interface IClient extends Serializable {
     public String getIdentificador();
+
     public double calcularDesconto(double preco);
-    public ExtratoPedidoResumido extratoPedido(String pedidoId);
-    public List<ExtratoPedidoResumido> extratoHistoricoDePedidos();
-    public List<ExtratoPedidoResumido> extratoPedidosDeXMesese(int quantidadeDeMeses);
-    public Pedido pedirPedido();
+
+    public String extratoPedido(String pedidoId);
+
+    public List<String> extratoHistoricoDePedidos();
+
+    public Pedido pedirPedido(List<Produto> produtos);
+
     public void avaliarPedido(String pedidoId, int nota);
+
     public double avaliacaoMediaDosPedidos();
+
+    public List<Pedido> getPedidos();
 }
